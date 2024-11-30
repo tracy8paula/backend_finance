@@ -21,7 +21,7 @@ exports.login = (req, res) => {
 
       // Store user information in the session
       req.session.user = { id: user.id, email: user.email, username: user.username };
-
+      res.setHeader('Content-Type', 'application/json');
       res.status(200).json({
         message: 'Login successful',
         user: { id: user.id, email: user.email, username: user.username },
