@@ -1,16 +1,17 @@
-const {addIncome, getIncomesByUser, deleteIncome} = require('../models/income');
+const { addIncome, getIncomeByUser, deleteIncome } = require('../models/income');
 
 // Add a new income
 exports.createIncome = (req, res) => {
   const { userId, source, amount, date } = req.body;
 
   if (!userId || !source || !amount || !date) {
-    return res.status(400).json({ error: 'All fields are required' });
+    return res.status(400).json({ error: 'All fields (userId, source, amount, date) are required' });
   }
-  
+
   addIncome(userId, source, amount, date, (err, result) => {
     if (err) {
-      return res.status(500).json({ error: 'Failed to add income' });
+      console.error('Error adding income:', err);
+      return res.status(500).json({ error: 'Failed to add income', details: err.message || err });
     }
     res.status(201).json({ message: 'Income added successfully', data: result });
   });
@@ -24,11 +25,12 @@ exports.getUserIncomes = (req, res) => {
     return res.status(400).json({ error: 'User ID is required' });
   }
 
-  getIncomesByUser(userId, (err, results) => {
+  getIncomeByUser(userId, (err, results) => {
     if (err) {
-      return res.status(500).json({ error: 'Failed to retrieve incomes' });
+      console.error('Error fetching incomes:', err);
+      return res.status(500).json({ error: 'Failed to retrieve incomes', details: err.message || err });
     }
-    res.status(200).json({ data: results });
+    res.status(200).json({ message: 'Incomes fetched successfully', data: results });
   });
 };
 
@@ -42,7 +44,8 @@ exports.deleteIncome = (req, res) => {
 
   deleteIncome(incomeId, (err, result) => {
     if (err) {
-      return res.status(500).json({ error: 'Failed to delete income' });
+      console.error('Error deleting income:', err);
+      return res.status(500).json({ error: 'Failed to delete income', details: err.message || err });
     }
     res.status(200).json({ message: 'Income deleted successfully', data: result });
   });

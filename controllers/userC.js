@@ -38,15 +38,14 @@ exports.getUserByEmail = (req, res) => {
   });
 };
 
-// Get user profile by user ID (assuming user ID is passed in the request body)
+
 exports.getUserProfile = (req, res) => {
-  const { userId } = req.body; // Get the userId from the request body (instead of JWT)
+  const userId = req.body.userId || req.query.userId; // Allow flexibility in passing userId
 
   if (!userId) {
     return res.status(400).json({ error: 'User ID is required' });
   }
 
-  // Fetch the user details from the database using the userId
   getUserById(userId, (err, user) => {
     if (err) {
       return res.status(500).json({ error: 'Failed to retrieve user profile', details: err });
@@ -55,7 +54,6 @@ exports.getUserProfile = (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // Return the user profile, excluding sensitive data like password
     const { password, ...userProfile } = user; // Exclude password from the response
     res.status(200).json({ data: userProfile });
   });

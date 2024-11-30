@@ -9,25 +9,22 @@ exports.login = (req, res) => {
     return res.status(400).json({ error: 'Email and password are required' });
   }
 
-  // Get user by email
   getUserByEmail(email, (err, user) => {
     if (err || !user) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
-    // Compare passwords
     bcrypt.compare(password, user.password, (err, isMatch) => {
       if (err || !isMatch) {
         return res.status(401).json({ error: 'Invalid email or password' });
       }
 
-      // Store user information in the session (no token needed)
+      // Store user information in the session
       req.session.user = { id: user.id, email: user.email, username: user.username };
 
-      // Send a success message with user details (without the token)
       res.status(200).json({
         message: 'Login successful',
-        user: { id: user.id, email: user.email, username: user.username }
+        user: { id: user.id, email: user.email, username: user.username },
       });
     });
   });
@@ -41,21 +38,12 @@ exports.register = (req, res) => {
     return res.status(400).json({ error: 'All fields are required' });
   }
 
-  // Create new user
   createUser(username, email, password, (err, result) => {
     if (err) {
       return res.status(500).json({ error: 'Failed to register user', details: err });
     }
     res.status(201).json({ message: 'User registered successfully', data: result });
   });
-};
-
-// Verify if user is authenticated (check if session exists)
-exports.isAuthenticated = (req, res, next) => {
-  if (!req.session.user) {
-    return res.status(401).json({ error: 'User is not authenticated' });
-  }
-  next(); // Continue to the next middleware or route handler
 };
 
 // User Logout

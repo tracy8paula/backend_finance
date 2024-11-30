@@ -1,14 +1,18 @@
 const express = require('express');
-const userController = require('../controllers/userC'); 
+const userController = require('../controllers/userC');
+const authController = require('../controllers/authC');
 const router = express.Router();
 
-// Route to create a new user
-router.post('/users', userController.createUser);
+// User registration (sign-up)
+router.post('/sign-up', authController.register);
 
-// Route to get a user by email
+// User login
+router.post('/login', authController.login);
+
+// User profile (authenticated)
+router.post('/users/profile', userController.getUserProfile);
+
+// Get user by email
 router.get('/users/:email', userController.getUserByEmail);
-
-// A route to get user profile by userId from the request body (no authentication middleware)
-router.post('/profile', userController.getUserProfile);
 
 module.exports = router;

@@ -1,15 +1,18 @@
-const {addExpense, getExpensesByUser} = require('../models/expense')
+const { addExpense, getExpensesByUser } = require('../models/expense');
+
 // Add a new expense
 exports.createExpense = (req, res) => {
   const { userId, category, amount, description, date } = req.body;
 
+  // Validate all required fields
   if (!userId || !category || !amount || !description || !date) {
-    return res.status(400).json({ error: 'All fields are required' });
+    return res.status(400).json({ error: 'All fields (userId, category, amount, description, date) are required' });
   }
 
   addExpense(userId, category, amount, description, date, (err, result) => {
     if (err) {
-      return res.status(500).json({ error: 'Failed to add expense' });
+      console.error('Error adding expense:', err);
+      return res.status(500).json({ error: 'Failed to add expense', details: err.message || err });
     }
     res.status(201).json({ message: 'Expense added successfully', data: result });
   });
@@ -25,8 +28,9 @@ exports.getUserExpenses = (req, res) => {
 
   getExpensesByUser(userId, (err, results) => {
     if (err) {
-      return res.status(500).json({ error: 'Failed to retrieve expenses' });
+      console.error('Error fetching expenses:', err);
+      return res.status(500).json({ error: 'Failed to retrieve expenses', details: err.message || err });
     }
-    res.status(200).json({ data: results });
+    res.status(200).json({ message: 'Expenses retrieved successfully', data: results });
   });
 };
