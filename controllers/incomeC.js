@@ -1,7 +1,7 @@
-const { addIncome, getIncomeByUser, deleteIncome } = require('../models/income');
+import { addIncome, getIncomeByUser, deleteIncome } from '../models/income.js';
 
 // Add a new income
-exports.createIncome = (req, res) => {
+export function createIncome(req, res) {
   const { userId, source, amount, date } = req.body;
 
   if (!userId || !source || !amount || !date) {
@@ -18,7 +18,7 @@ exports.createIncome = (req, res) => {
 };
 
 // Get all incomes for a user
-exports.getUserIncomes = (req, res) => {
+export function getUserIncomes(req, res) {
   const { userId } = req.params;
 
   if (!userId) {
@@ -35,7 +35,7 @@ exports.getUserIncomes = (req, res) => {
 };
 
 // Delete an income
-exports.deleteIncome = (req, res) => {
+export const deleteIncome = (req, res) => {
   const { incomeId } = req.params;
 
   if (!incomeId) {

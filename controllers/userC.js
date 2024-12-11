@@ -1,7 +1,7 @@
-const { createUser, getUserByEmail, getUserById } = require('../models/user');
+import { createUser, getUserByEmail, getUserById } from '../models/user.js';
 
 // Create a new user
-exports.createUser = (req, res) => {
+export const createUser = (req, res) => {
   const { username, email, password } = req.body;
 
   // Validate input
@@ -19,7 +19,7 @@ exports.createUser = (req, res) => {
 };
 
 // Get user by email
-exports.getUserByEmail = (req, res) => {
+export const getUserByEmail = (req, res) => {
   const { email } = req.params;
 
   if (!email) {
@@ -39,7 +39,7 @@ exports.getUserByEmail = (req, res) => {
 };
 
 
-exports.getUserProfile = (req, res) => {
+export function getUserProfile(req, res) {
   const userId = req.body.userId || req.query.userId; // Allow flexibility in passing userId
 
   if (!userId) {

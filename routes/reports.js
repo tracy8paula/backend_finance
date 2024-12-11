@@ -1,9 +1,9 @@
-const express = require('express');
-const reportController = require('../controllers/reportC');
+import { Router } from 'express';
+import { generateReport } from '../controllers/reportC.js';
 
-const router = express.Router();
+const router = Router();
 
 // Route to generate a report for a user
-router.get('/reports/:userId', reportController.generateReport);
+router.get('/reports/:userId', generateReport);
 
-module.exports = router;
+export default router;

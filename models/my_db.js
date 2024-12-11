@@ -1,7 +1,7 @@
-const mysql = require('mysql2');
+import { createConnection } from 'mysql2';
 
 // Create the database connection
-const db = mysql.createConnection({
+export const db = createConnection({
     host: '127.0.0.1', 
     port: 3306,        
     user: 'root',      
@@ -18,5 +18,3 @@ db.connect((err) => {
         console.log('Connected to the MySQL database.');
     }
 });
-
-module.exports = db;

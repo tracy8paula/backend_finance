@@ -1,18 +1,18 @@
-const express = require('express');
-const userController = require('../controllers/userC');
-const authController = require('../controllers/authC');
-const router = express.Router();
+import { Router } from 'express';
+import { getUserProfile, getUserByEmail } from '../controllers/userC.js';
+import { register, login } from '../controllers/authC.js';
+const router = Router();
 
 // User registration (sign-up)
-router.post('/sign-up', authController.register);
+router.post('/sign-up', register);
 
 // User login
-router.post('/login', authController.login);
+router.post('/login', login);
 
 // User profile (authenticated)
-router.post('/users/profile', userController.getUserProfile);
+router.post('/users/profile', getUserProfile);
 
 // Get user by email
-router.get('/users/:email', userController.getUserByEmail);
+router.get('/users/:email', getUserByEmail);
 
-module.exports = router;
+export default router;

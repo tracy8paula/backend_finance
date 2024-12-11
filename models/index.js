@@ -1,10 +1,10 @@
-const db = require('./my_db');
-const User = require('./user');
-const Expense = require('./expense');
-const Income = require('./income');
-const Budget = require('./budget');
+import db from './my_db.js';
+import * as User from './user.js';
+import * as Expense from './expense.js';
+import * as Income from './income.js';
+import * as Budget from './budget.js';
 
 // Export the database connection and models
-module.exports = { db, User, Expense, Income, Budget };
+export default { db, User, Expense, Income, Budget };
 
 // this file just helps make other imports simpler

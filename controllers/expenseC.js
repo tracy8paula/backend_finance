@@ -1,7 +1,7 @@
-const { addExpense, getExpensesByUser } = require('../models/expense');
+import { addExpense, getExpensesByUser } from '../models/expense.js';
 
 // Add a new expense
-exports.createExpense = (req, res) => {
+export function createExpense(req, res) {
   const { userId, category, amount, description, date } = req.body;
 
   // Validate all required fields
@@ -19,7 +19,7 @@ exports.createExpense = (req, res) => {
 };
 
 // Get all expenses for a user
-exports.getUserExpenses = (req, res) => {
+export function getUserExpenses(req, res) {
   const { userId } = req.params;
 
   if (!userId) {

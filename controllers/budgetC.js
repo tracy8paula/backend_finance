@@ -1,7 +1,7 @@
-const { createBudget, getBudgetsByUser, deleteBudget } = require('../models/budget');
+import { createBudget, getBudgetsByUser, deleteBudget } from '../models/budget.js';
 
 // Add a new budget
-exports.createBudget = (req, res) => {
+export const createBudget = (req, res) => {
   const { userId, name, totalAmount, startDate, endDate } = req.body;
 
   // Validate all required fields
@@ -19,7 +19,7 @@ exports.createBudget = (req, res) => {
 };
 
 // Get all budgets for a user
-exports.getUserBudgets = (req, res) => {
+export function getUserBudgets(req, res) {
   const { userId } = req.params;
 
   if (!userId) {
@@ -36,7 +36,7 @@ exports.getUserBudgets = (req, res) => {
 };
 
 // Delete a budget
-exports.deleteBudget = (req, res) => {
+export const deleteBudget = (req, res) => {
   const { budgetId } = req.params;
 
   if (!budgetId) {

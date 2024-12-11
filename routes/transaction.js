@@ -1,12 +1,12 @@
-const express = require('express');
-const transactionController = require('../controllers/transactionC');
+import { Router } from 'express';
+import { getTransactions, createTransaction } from '../controllers/transactionC.js';
 
-const router = express.Router();
+const router = Router();
 
 // Route to get transactions (from Firebase or local DB)
-router.get('/transactions', transactionController.getTransactions);
+router.get('/transactions', getTransactions);
 
 // Route to create a new transaction (in Firebase or local DB)
-router.post('/transactions', transactionController.createTransaction);
+router.post('/transactions', createTransaction);
 
-module.exports = router;
+export default router;

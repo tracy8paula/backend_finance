@@ -1,7 +1,7 @@
-const { getTransactionsFromLocal, createTransactionInLocal } = require('../models/transaction');
+import { getTransactionsFromLocal, createTransactionInLocal } from '../models/transaction.js';
 
 // Get all transactions
-const getTransactions = async (req, res) => {
+export const getTransactions = async (req, res) => {
   try {
     const transactions = await new Promise((resolve, reject) => {
       getTransactionsFromLocal((err, results) => {
@@ -18,7 +18,7 @@ const getTransactions = async (req, res) => {
 };
 
 // Create a new transaction
-const createTransaction = async (req, res) => {
+export const createTransaction = async (req, res) => {
   const { userId, amount, category, date } = req.body;
 
   // Validate the transaction details
@@ -39,9 +39,4 @@ const createTransaction = async (req, res) => {
     console.error('Error creating transaction:', error);
     res.status(500).json({ error: 'Error creating transaction', details: error.message });
   }
-};
-
-module.exports = {
-  getTransactions,
-  createTransaction,
 };

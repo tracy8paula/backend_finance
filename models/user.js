@@ -1,8 +1,8 @@
-const db = require('./my_db');
-const bcrypt = require('bcrypt');
+import db from './my_db';
+import bcrypt from 'bcrypt';
 
 // Get user by email (for authentication)
-const getUserByEmail = (email, callback) => {
+export const getUserByEmail = (email, callback) => {
   const query = 'SELECT * FROM users WHERE email = ?';
   db.query(query, [email], (err, results) => {
     if (err) {
@@ -13,7 +13,7 @@ const getUserByEmail = (email, callback) => {
 };
 
 // Get user by ID (new function to fetch the profile)
-const getUserById = (userId, callback) => {
+export const getUserById = (userId, callback) => {
   const query = 'SELECT id, username, email, createdAt FROM users WHERE id = ?';
   db.query(query, [userId], (err, results) => {
       if (err) {
@@ -25,7 +25,7 @@ const getUserById = (userId, callback) => {
 };
 
 // Add a new user with hashed password
-const createUser = (username, email, password, callback) => {
+export const createUser = (username, email, password, callback) => {
   // Hash the password before storing it
   bcrypt.hash(password, 10, (err, hashedPassword) => {
     if (err) {
@@ -40,10 +40,4 @@ const createUser = (username, email, password, callback) => {
       callback(null, result);
     });
   });
-};
-
-module.exports = {
-  getUserByEmail,
-  getUserById,
-  createUser
 };

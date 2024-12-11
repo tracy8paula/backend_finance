@@ -1,8 +1,8 @@
-const bcrypt = require('bcrypt');
-const { getUserByEmail, createUser } = require('../models/user');
+import { compare } from 'bcrypt';
+import { getUserByEmail, createUser } from '../models/user.js';
 
 // User Login
-exports.login = (req, res) => {
+export function login(req, res) {
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -14,7 +14,7 @@ exports.login = (req, res) => {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
-    bcrypt.compare(password, user.password, (err, isMatch) => {
+    compare(password, user.password, (err, isMatch) => {
       if (err || !isMatch) {
         return res.status(401).json({ error: 'Invalid email or password' });
       }
@@ -28,10 +28,10 @@ exports.login = (req, res) => {
       });
     });
   });
-};
+}
 
 // User Registration
-exports.register = (req, res) => {
+export function register(req, res) {
   const { username, email, password } = req.body;
 
   if (!username || !email || !password) {
@@ -44,14 +44,14 @@ exports.register = (req, res) => {
     }
     res.status(201).json({ message: 'User registered successfully', data: result });
   });
-};
+}
 
 // User Logout
-exports.logout = (req, res) => {
+export function logout(req, res) {
   req.session.destroy((err) => {
     if (err) {
       return res.status(500).json({ error: 'Failed to log out' });
     }
     res.status(200).json({ message: 'Logged out successfully' });
   });
-};
+}

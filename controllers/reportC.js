@@ -1,8 +1,8 @@
-const expenseModel = require('../models/expense');
-const incomeModel = require('../models/income');
+import { getExpensesByUser } from '../models/expense.js';
+import { getIncomeByUser } from '../models/income.js';
 
 // Generate a summary report
-exports.generateReport = async (req, res) => {
+export async function generateReport(req, res) {
   const { userId } = req.params;
 
   if (!userId) {
@@ -12,7 +12,7 @@ exports.generateReport = async (req, res) => {
   try {
     // Fetch all incomes for the user
     const incomes = await new Promise((resolve, reject) =>
-      incomeModel.getIncomeByUser(userId, (err, results) => {
+      getIncomeByUser(userId, (err, results) => {
         if (err) {
           console.error('Error fetching incomes:', err);
           reject(err);
@@ -24,7 +24,7 @@ exports.generateReport = async (req, res) => {
 
     // Fetch all expenses for the user
     const expenses = await new Promise((resolve, reject) =>
-      expenseModel.getExpensesByUser(userId, (err, results) => {
+      getExpensesByUser(userId, (err, results) => {
         if (err) {
           console.error('Error fetching expenses:', err);
           reject(err);

@@ -1,13 +1,13 @@
-const express = require('express');
-const budgetController = require('../controllers/budgetC');
+import { Router } from 'express';
+import { createBudget, getUserBudgets, deleteBudget } from '../controllers/budgetC.js';
 
-const router = express.Router();
+const router = Router();
 
 // adding budgets
-router.post('/budgets', budgetController.createBudget);
+router.post('/budgets', createBudget);
 // getting all budgets
-router.get('/budgets/:userId', budgetController.getUserBudgets);
+router.get('/budgets/:userId', getUserBudgets);
 // Route to delete a budget
-router.delete('/budgets/:budgetId', budgetController.deleteBudget);
+router.delete('/budgets/:budgetId', deleteBudget);
 
-module.exports = router;
+export default router;

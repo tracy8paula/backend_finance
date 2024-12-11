@@ -1,15 +1,15 @@
-const express = require('express');
-const incomeController = require('../controllers/incomeC');
+import { Router } from 'express';
+import { createIncome, getUserIncomes, deleteIncome } from '../controllers/incomeC.js';
 
-const router = express.Router();
+const router = Router();
 
 // Route to create a new income
-router.post('/incomes', incomeController.createIncome);
+router.post('/incomes', createIncome);
 
 // Route to get all incomes for a user
-router.get('/incomes/:userId', incomeController.getUserIncomes);
+router.get('/incomes/:userId', getUserIncomes);
 
 // Route to delete an income
-router.delete('/incomes/:incomeId', incomeController.deleteIncome);
+router.delete('/incomes/:incomeId', deleteIncome);
 
-module.exports = router;
+export default router;

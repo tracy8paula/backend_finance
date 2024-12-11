@@ -1,7 +1,7 @@
-const db = require('./my_db');
+import db from './my_db';
 
 // Create a new budget
-const createBudget = (userId, name, totalAmount, startDate, endDate, callback) => {
+export const createBudget = (userId, name, totalAmount, startDate, endDate, callback) => {
     const query = 'INSERT INTO budgets (userId, name, totalAmount, startDate, endDate) VALUES (?, ?, ?, ?, ?)';
     db.query(query, [userId, name, totalAmount, startDate, endDate], (err, result) => {
         if (err) {
@@ -13,7 +13,7 @@ const createBudget = (userId, name, totalAmount, startDate, endDate, callback) =
 };
 
 // Get all budgets for a user
-const getBudgetsByUser = (userId, callback) => {
+export const getBudgetsByUser = (userId, callback) => {
     const query = 'SELECT * FROM budgets WHERE userId = ?';
     db.query(query, [userId], (err, results) => {
         if (err) {
@@ -25,7 +25,7 @@ const getBudgetsByUser = (userId, callback) => {
 };
 
 // Delete a budget
-const deleteBudget = (budgetId, callback) => {
+export const deleteBudget = (budgetId, callback) => {
     const query = 'DELETE FROM budgets WHERE id = ?';
     db.query(query, [budgetId], (err, result) => {
         if (err) {
@@ -34,10 +34,4 @@ const deleteBudget = (budgetId, callback) => {
         }
         callback(null, result);
     });
-};
-
-module.exports = {
-    createBudget,
-    getBudgetsByUser,
-    deleteBudget
 };

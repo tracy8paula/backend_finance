@@ -1,7 +1,7 @@
-const db = require('./my_db');
+import db from './my_db';
 
 // Get transactions from local database
-const getTransactionsFromLocal = (callback) => {
+export const getTransactionsFromLocal = (callback) => {
   const query = 'SELECT * FROM transactions'; // Query to fetch all transactions
   db.query(query, (err, results) => {
     if (err) {
@@ -13,7 +13,7 @@ const getTransactionsFromLocal = (callback) => {
 };
 
 // Create a new transaction in the local database
-const createTransactionInLocal = (transaction, callback) => {
+export const createTransactionInLocal = (transaction, callback) => {
   const { userId, amount, category, date } = transaction;
 
   if (!userId || !amount || !category || !date) {
@@ -30,9 +30,4 @@ const createTransactionInLocal = (transaction, callback) => {
     }
     callback(null, result); // Return the result of the insertion
   });
-};
-
-module.exports = {
-  getTransactionsFromLocal,
-  createTransactionInLocal,
 };

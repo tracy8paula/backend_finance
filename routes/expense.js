@@ -1,11 +1,11 @@
-const express = require('express');
-const expenseController = require('../controllers/expenseC');
-const router = express.Router();
+import { Router } from 'express';
+import { createExpense, getUserExpenses } from '../controllers/expenseC.js';
+const router = Router();
 
 // add a new expense
-router.post('/expenses', expenseController.createExpense);
+router.post('/expenses', createExpense);
 
 //get all expenses
-router.get('/expenses/:userId', expenseController.getUserExpenses);
+router.get('/expenses/:userId', getUserExpenses);
 
-module.exports = router;
+export default router;
