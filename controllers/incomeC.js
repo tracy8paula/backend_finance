@@ -1,4 +1,4 @@
-import { addIncome, getIncomeByUser, deleteIncome } from '../models/income.js';
+import { addIncome, getIncomeByUser, deleteIncome as deleteIncomeModel } from '../models/income.js';
 
 // Add a new income
 export function createIncome(req, res) {
@@ -42,7 +42,7 @@ export const deleteIncome = (req, res) => {
     return res.status(400).json({ error: 'Income ID is required' });
   }
 
-  deleteIncome(incomeId, (err, result) => {
+  deleteIncomeModel(incomeId, (err, result) => {
     if (err) {
       console.error('Error deleting income:', err);
       return res.status(500).json({ error: 'Failed to delete income', details: err.message || err });

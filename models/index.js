@@ -6,5 +6,3 @@ import * as Budget from './budget.js';
 
 // Export the database connection and models
 export default { db, User, Expense, Income, Budget };
-
-// this file just helps make other imports simpler

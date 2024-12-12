@@ -1,7 +1,7 @@
 import { createConnection } from 'mysql2';
 
 // Create the database connection
-export const db = createConnection({
+const db = createConnection({
     host: '127.0.0.1', 
     port: 3306,        
     user: 'root',      
@@ -18,3 +18,5 @@ db.connect((err) => {
         console.log('Connected to the MySQL database.');
     }
 });
+
+export default db;

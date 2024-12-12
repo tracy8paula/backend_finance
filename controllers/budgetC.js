@@ -1,4 +1,4 @@
-import { createBudget, getBudgetsByUser, deleteBudget } from '../models/budget.js';
+import { createBudget as createBudgetModel, getBudgetsByUser, deleteBudget as deleteBudgetModel } from '../models/budget.js';
 
 // Add a new budget
 export const createBudget = (req, res) => {
@@ -9,7 +9,8 @@ export const createBudget = (req, res) => {
     return res.status(400).json({ error: 'All fields (userId, name, totalAmount, startDate, endDate) are required' });
   }
 
-  createBudget(userId, name, totalAmount, startDate, endDate, (err, result) => {
+  // Call the createBudgetModel function to create the budget
+  createBudgetModel(userId, name, totalAmount, startDate, endDate, (err, result) => {
     if (err) {
       console.error('Error creating budget:', err);
       return res.status(500).json({ error: 'Failed to add budget', details: err.message || err });
@@ -19,7 +20,7 @@ export const createBudget = (req, res) => {
 };
 
 // Get all budgets for a user
-export function getUserBudgets(req, res) {
+export const getUserBudgets = (req, res) => {
   const { userId } = req.params;
 
   if (!userId) {
@@ -43,7 +44,7 @@ export const deleteBudget = (req, res) => {
     return res.status(400).json({ error: 'Budget ID is required' });
   }
 
-  deleteBudget(budgetId, (err, result) => {
+  deleteBudgetModel(budgetId, (err, result) => {
     if (err) {
       console.error('Error deleting budget:', err);
       return res.status(500).json({ error: 'Failed to delete budget', details: err.message || err });

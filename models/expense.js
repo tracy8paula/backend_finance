@@ -1,4 +1,4 @@
-import db from './my_db';
+import db from './my_db.js';
 
 // Add a new expense
 export const addExpense = (userId, category, amount, description, date, callback) => {

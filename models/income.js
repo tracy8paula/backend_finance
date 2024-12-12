@@ -1,4 +1,4 @@
-import db from './my_db';
+import db from './my_db.js';
 
 // Add a new income
 export const addIncome = (userId, source, amount, date, callback) => {

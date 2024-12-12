@@ -1,4 +1,4 @@
-import { createUser, getUserByEmail, getUserById } from '../models/user.js';
+import { createUser as createUserModel, getUserByEmail as getUserByEmailModel, getUserById } from '../models/user.js';
 
 // Create a new user
 export const createUser = (req, res) => {
@@ -10,7 +10,7 @@ export const createUser = (req, res) => {
   }
 
   // Call the model function to create a user
-  createUser(username, email, password, (err, result) => {
+  createUserModel(username, email, password, (err, result) => {
     if (err) {
       return res.status(500).json({ error: 'Failed to create user', details: err });
     }
@@ -27,7 +27,7 @@ export const getUserByEmail = (req, res) => {
   }
 
   // Call the model function to get a user by email
-  getUserByEmail(email, (err, user) => {
+  getUserByEmailModel(email, (err, user) => {
     if (err) {
       return res.status(500).json({ error: 'Failed to fetch user', details: err });
     }
@@ -38,8 +38,8 @@ export const getUserByEmail = (req, res) => {
   });
 };
 
-
-export function getUserProfile(req, res) {
+// Get user profile
+export const getUserProfile = (req, res) => {
   const userId = req.body.userId || req.query.userId; // Allow flexibility in passing userId
 
   if (!userId) {

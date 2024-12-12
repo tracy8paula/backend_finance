@@ -1,4 +1,4 @@
-import db from './my_db';
+import db from './my_db.js';
 
 // Create a new budget
 export const createBudget = (userId, name, totalAmount, startDate, endDate, callback) => {

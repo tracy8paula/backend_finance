@@ -1,4 +1,4 @@
-import db from './my_db';
+import db from './my_db.js';
 import bcrypt from 'bcrypt';
 
 // Get user by email (for authentication)

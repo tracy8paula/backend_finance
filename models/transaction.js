@@ -1,4 +1,4 @@
-import db from './my_db';
+import db from './my_db.js';
 
 // Get transactions from local database
 export const getTransactionsFromLocal = (callback) => {

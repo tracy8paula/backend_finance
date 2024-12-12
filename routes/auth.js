@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { login, register, logout } from '../controllers/authC';
+import { login, register, logout } from '../controllers/authC.js';
 
 const router = Router();
 
